@@ -1,3 +1,7 @@
 .bash_aliases
 .vimrc
 .vim
+.lynxrc
+lynx.cfg
+.bash_exports
+.bashrc

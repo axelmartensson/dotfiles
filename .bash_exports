@@ -1,0 +1,6 @@
+
+export EDITOR=/usr/bin/vim
+
+# lynx
+export LYNX_CFG=~/lynx.cfg
+
