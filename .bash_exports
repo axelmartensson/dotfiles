@@ -4,3 +4,5 @@ export EDITOR=/usr/bin/vim
 # lynx
 export LYNX_CFG=~/lynx.cfg
 
+# fzf
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'

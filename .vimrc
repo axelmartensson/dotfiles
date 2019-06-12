@@ -1,6 +1,5 @@
 
-nmap <TAB> za
-
+imap ii <ESC>
 nnoremap <SPACE> <Nop>
 let mapleader = "\<space>" 
 
@@ -8,17 +7,16 @@ let g:pandoc#formatting#mode = 'hA'
 
 let g:monochrome_italic_comments = 1
 
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_switch_buffer = 'E'
-let g:ctrlp_map = '<Leader>o'
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-map <Leader>g :CtrlPBuffer<CR>
+map <Leader>o :Files<Cr>
+map <Leader>g :Buffers<Cr>
+set runtimepath^=~/.fzf
 
 set nocompatible
 set encoding=utf8
 set expandtab
 set tabstop=4
 set autoindent
+set autowriteall
 set backspace=indent,eol,start
 set incsearch
 set ignorecase
@@ -29,6 +27,7 @@ set foldlevel=0
 set clipboard^=unnamed
 set clipboard^=unnamedplus
 set number
+set scrolloff=4
 set shell=/bin/bash
 let $BASH_ENV = "~/.bash_aliases"
 
@@ -61,3 +60,4 @@ command Gipu Gpull
 command Gips Git push
 command Gica Gcommit -a
 
+command Vrc edit ~/.vimrc

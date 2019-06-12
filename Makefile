@@ -12,7 +12,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES)
+all: $(DOTFILES) .fzf/install
 
 $(DOTFILES):
 	ln -s $(SRCDIR)/$@ $(CURDIR)/$@
@@ -23,5 +23,9 @@ deps.d: $(DOTFILES_MANIFEST)
 	for dotfile in $(DOTFILES); do echo "$${dotfile}: $(SRCDIR)/$${dotfile}" >> $@; done
 
 include deps.d
+
+.fzf/bin/fzf:
+	git clone --depth 1 https://github.com/junegunn/fzf.git .fzf
+	cd .fzf/ && ./install
 
 endif
