@@ -12,7 +12,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .fzf/install
+all: $(DOTFILES) .fzf/bin/fzf ripgrep 
 
 $(DOTFILES):
 	ln -s $(SRCDIR)/$@ $(CURDIR)/$@
@@ -28,4 +28,13 @@ include deps.d
 	git clone --depth 1 https://github.com/junegunn/fzf.git .fzf
 	cd .fzf/ && ./install
 
+.PHONY: ripgrep
+ripgrep:
+	command -v rg >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] && curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep_11.0.1_amd64.deb && sudo dpkg -i ripgrep_11.0.1_amd64.deb )\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]) && \
+			curl https://raw.githubusercontent.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep-11.0.1-x86_64-pc-windows-msvc.zip -o ripgrep-11.0.1-x86_64-pc-windows-msvc.zip && \
+			mkdir -p bin && unzip ripgrep-11.0.1-x86_64-pc-windows-msvc.zip -d bin)
+
 endif
+

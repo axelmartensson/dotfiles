@@ -1,5 +1,5 @@
 
-imap ii <ESC>
+inoremap ii <ESC>
 nnoremap <SPACE> <Nop>
 let mapleader = "\<space>" 
 
