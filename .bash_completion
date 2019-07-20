@@ -1,0 +1,15 @@
+#! /bin/bash
+set -euo pipefail
+_home_bin() {
+    _files() {
+        for f in ~/bin/*
+        do
+            echo $(basename $f)
+        done
+    }
+    COMPREPLY=( $(compgen -W "$(_files)" -- ${COMP_WORDS[COMP_CWORD]}) )
+    return 0;
+}
+complete -F _home_bin vicmd
+
+set +euo pipefail

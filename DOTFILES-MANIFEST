@@ -1,7 +1,9 @@
 .bash_aliases
 .vimrc
 .vim
+bin
 .lynxrc
 lynx.cfg
 .bash_exports
+.bash_completion
 .bashrc
