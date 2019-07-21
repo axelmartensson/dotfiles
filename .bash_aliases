@@ -25,5 +25,5 @@ alias gips="git push"
 alias gipu="git pull"
 alias gilg="git log"
 ############################
-alias install="sudo apt-get install"
+alias install="sudo apt install"
 
