@@ -12,7 +12,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .fzf/bin/fzf ripgrep 
+all: $(DOTFILES) .fzf/bin/fzf ripgrep fd
 
 $(DOTFILES):
 	ln -s $(SRCDIR)/$@ $(CURDIR)/$@
@@ -35,6 +35,14 @@ ripgrep:
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]) && \
 			curl https://raw.githubusercontent.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep-11.0.1-x86_64-pc-windows-msvc.zip -o ripgrep-11.0.1-x86_64-pc-windows-msvc.zip && \
 			mkdir -p bin && unzip ripgrep-11.0.1-x86_64-pc-windows-msvc.zip -d bin)
+
+.PHONY: fd
+fd:
+	command -v fd >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] && curl -LO https://github.com/sharkdp/fd/releases/download/v7.3.0/fd_7.3.0_amd64.deb && sudo dpkg -i fd_7.3.0_amd64.deb )\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]) && \
+			curl -LO https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-v7.3.0-x86_64-pc-windows-msvc.zip && \
+			mkdir -p bin && unzip fd-v7.3.0-x86_64-pc-windows-msvc.zip -d bin)
 
 endif
 
