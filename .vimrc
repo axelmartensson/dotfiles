@@ -1,4 +1,3 @@
-
 inoremap ii <ESC>
 nnoremap <SPACE> <Nop>
 let mapleader = "\<space>" 
@@ -17,6 +16,7 @@ set expandtab
 set tabstop=4
 set autoindent
 set autowriteall
+set autoread
 set backspace=indent,eol,start
 set incsearch
 set ignorecase
