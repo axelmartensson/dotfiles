@@ -12,7 +12,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .fzf/bin/fzf ripgrep fd
+all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr
 
 $(DOTFILES):
 	ln -s $(SRCDIR)/$@ $(CURDIR)/$@
@@ -43,6 +43,14 @@ fd:
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]) && \
 			curl -LO https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-v7.3.0-x86_64-pc-windows-msvc.zip && \
 			mkdir -p bin && unzip fd-v7.3.0-x86_64-pc-windows-msvc.zip -d bin)
+
+.PHONY: entr
+entr:
+	command -v entr >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			([ -d entr ] || git clone https://github.com/eradman/entr entr) &&\
+			cd entr && ./configure && make test && sudo make install )\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 endif
 
