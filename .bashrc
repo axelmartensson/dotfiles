@@ -95,3 +95,5 @@ if [ -f ~/.bash_completion ] && ! shopt -oq posix; then
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+[ -f ~/z/z.sh ] && source ~/z/z.sh
