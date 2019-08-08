@@ -18,12 +18,21 @@ alias l='ls -CF'
 
 ###### GIT ALIASES #########
 #alias git=hub # wrapper for integration with github
-alias gica="git commit -a"
-alias gico="git checkout"
-alias gist="git status --short --branch"
-alias gips="git push"
-alias gipu="git pull"
-alias gilg="git log"
+alias gca="git commit -a"
+alias gco="git checkout"
+alias gst="git status --short --branch"
+alias gps="git push"
+alias gpu="git pull"
+alias glg="git log"
+alias gdf="git diff"
+############################
+
+###### SVN ALIASES #########
+alias sco="svn checkout"
+alias sca="svn commit"
+alias sst="svn status --ignore-externals"
+alias slg="svn log"
+alias sdf="svn diff"
 ############################
 alias install="sudo apt install"
 
