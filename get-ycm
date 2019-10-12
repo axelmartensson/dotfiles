@@ -1,0 +1,41 @@
+#!/bin/bash
+set -euo pipefail
+set -x
+
+generator="Unix Makefiles" 
+llvm_url=https://github.com/llvm/llvm-project/releases/download/llvmorg-8.0.1/clang+llvm-8.0.1-x86_64-linux-gnu-ubuntu-14.04.tar.xz
+llvm_archive=$(basename $llvm_url)
+llvm_dir=$(pwd)/$(basename $llvm_url '.tar.xz')
+
+[ -d ~/.vim/bundle/YouCompleteMe/.git ] || git clone https://github.com/ycm-core/YouCompleteMe ~/.vim/bundle/YouCompleteMe
+pushd ~/.vim/bundle/YouCompleteMe
+git checkout master
+git pull
+git submodule update --init --recursive
+
+python3 install.py \
+    --java-completer \
+    --skip-build
+
+# where skip-build instead of the two
+#    --clang-completer \ # using the official binaries instead
+#    --clangd-completer \ # using the official binaries instead
+
+popd
+
+[ -f $llvm_archive ] || curl -LO $llvm_url
+tar --xz -xvf $llvm_archive
+
+mkdir -p ycm_build
+pushd ycm_build
+cmake -G "$generator" -DUSE_PYTHON2=OFF -DPATH_TO_LLVM_ROOT=$llvm_dir . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
+#-DUSE_PYTHON2=OFF is necessary because otherwise python2 libs are selected if python2 installed on ubuntu
+cmake --build . --target ycm_core --config Release
+popd
+
+mkdir -p cregex_build
+pushd cregex_build
+cmake -G "$generator" . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/cregex
+cmake --build . --target _regex --config Release
+popd
+
