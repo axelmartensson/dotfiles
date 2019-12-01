@@ -58,6 +58,11 @@ au BufRead,BufNewFile *.tt set filetype=java
 
 autocmd FileType python BracelessEnable +indent +fold
 
+" UltiSnips triggering. from https://github.com/ycm-core/YouCompleteMe/issues/2032
+let g:UltiSnipsExpandTrigger = '<C-j>'
+let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 colorscheme monochrome
