@@ -1,0 +1,25 @@
+#!/bin/bash
+set -euo pipefail
+
+# installs git and make
+# used for the initial run when neither git or make are available
+# usage: curl me:
+# curl https://example.com/dotfiles/init | bash /dev/stdin https://example.com/dotfiles
+
+dotfiles_uri=$1
+target_path=${2:-dotfiles}
+
+command -v make >/dev/null \
+    || ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+        sudo apt install make)\
+    || (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+command -v git >/dev/null \
+    || ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+        sudo apt install git)\
+    || (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+
+[ -d $target_path ] || git clone $dotfiles_uri $target_path
+cd $target_path
+make
