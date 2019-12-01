@@ -58,6 +58,9 @@ au BufRead,BufNewFile *.tt set filetype=java
 
 autocmd FileType python BracelessEnable +indent +fold
 
+" autosave when buffer is modified
+autocmd TextChanged,TextChangedI <buffer> silent write
+
 " UltiSnips triggering. from https://github.com/ycm-core/YouCompleteMe/issues/2032
 let g:UltiSnipsExpandTrigger = '<C-j>'
 let g:UltiSnipsJumpForwardTrigger = '<C-j>'
