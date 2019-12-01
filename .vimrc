@@ -2,7 +2,11 @@ inoremap ii <ESC>
 nnoremap <SPACE> <Nop>
 let mapleader = "\<space>" 
 
+nmap h <PageUp>
+nmap l <PageDown>
+
 let g:pandoc#formatting#mode = 'hA'
+
 
 let g:monochrome_italic_comments = 1
 
