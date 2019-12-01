@@ -76,3 +76,9 @@ command Gips Git push
 command Gica Gcommit -a
 
 command Vrc edit ~/.vimrc
+
+
+" execute current line by piping to bash
+nmap <Leader>x !!bash<CR>
+" execute current selection by piping to bash
+vmap <Leader>x !bash<CR>
