@@ -12,7 +12,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr urxvt tmux lynx ycm
+all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr urxvt tmux lynx mutt ycm
 
 $(DOTFILES):
 	ln -s $(SRCDIR)/$@ $(CURDIR)/$@
@@ -71,6 +71,13 @@ lynx:
 	command -v lynx >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
 			sudo apt install lynx)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+.PHONY: mutt
+mutt:
+	command -v mutt >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install mutt)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 .PHONY: ycm
