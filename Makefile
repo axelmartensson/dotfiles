@@ -12,7 +12,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr urxvt tmux lynx mutt ycm
+all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr urxvt tmux lynx mutt xmonad conky dzen2 dmenu ycm
 
 $(DOTFILES):
 	ln -s $(SRCDIR)/$@ $(CURDIR)/$@
@@ -78,6 +78,34 @@ mutt:
 	command -v mutt >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
 			sudo apt install mutt)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+.PHONY: xmonad
+xmonad:
+	command -v xmonad >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install xmonad)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+.PHONY: conky
+conky:
+	command -v conky >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install conky-cli)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+.PHONY: dzen2
+dzen2:
+	command -v dzen2 >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install dzen2)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+.PHONY: dmenu
+dmenu:
+	command -v dmenu >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install suckless-tools)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 .PHONY: ycm

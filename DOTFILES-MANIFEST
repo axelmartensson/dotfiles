@@ -13,3 +13,4 @@ lynx.cfg
 .Xdefaults
 .local
 .fonts.conf
+.xmonad
