@@ -31,3 +31,6 @@
 [submodule ".vim/bundle/vim-surround"]
 	path = .vim/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround.git
+[submodule ".local/share/fonts/proggyfonts"]
+	path = .local/share/fonts/proggyfonts
+	url = https://github.com/bluescan/proggyfonts
