@@ -25,9 +25,10 @@ set backspace=indent,eol,start
 set incsearch
 set ignorecase
 set ruler
+set isfname-=: " make file linenumber , e.g.: file.c:32 work with gF on windows
 set wildmenu
+set iskeyword+=- " make words-with-hyphens count as one word
 set commentstring=\ #\ %s
-set foldlevel=0
 set clipboard^=unnamed
 set clipboard^=unnamedplus
 set number
@@ -41,12 +42,14 @@ set bg=dark
 let g:tex_flavor='latex'
 let g:Tex_ViewRule_pdf='zathura'
 let g:Tex_DefaultTargetFormat='pdf'
-filetype plugin indent on
 
 let g:pathogen_disabled = []
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect() 
 call pathogen#helptags()
+
+filetype plugin indent on
+syntax on
 
 au BufRead,BufNewFile *.Rtex set filetype=rnoweb
 au BufRead,BufNewFile *.jrag set filetype=java
