@@ -9,3 +9,5 @@ lynx.cfg
 .bash_exports
 .bash_completion
 .bashrc
+.inputrc
+.Xdefaults

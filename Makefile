@@ -12,7 +12,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr ycm
+all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr ycm urxvt
 
 $(DOTFILES):
 	ln -s $(SRCDIR)/$@ $(CURDIR)/$@
@@ -52,6 +52,12 @@ entr:
 			cd entr && ./configure && make test && sudo make install )\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
+.PHONY: urxvt
+urxvt:
+	command -v urxvt >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install rxvt-unicode)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 .PHONY: ycm
 ycm: .vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so
