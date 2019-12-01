@@ -11,3 +11,5 @@ lynx.cfg
 .bashrc
 .inputrc
 .Xdefaults
+.local
+.fonts.conf
