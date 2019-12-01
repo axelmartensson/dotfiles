@@ -3,18 +3,24 @@ ifneq ($(CURDIR),$(HOME))
 
 .SUFFIXES:
 
-PHONY+=switch-tree
+.PHONY: switch-tree
 switch-tree:
 	$(MAKE) -C $(HOME) -f $(CURDIR)/Makefile SRCDIR=$(CURDIR) $(MAKECMDGOALS)
+test:
+	sudo docker run -v $(CURDIR):/dotfiles ubuntu /bin/bash -c "apt update;apt install -y sudo;$$(cat init)" init file:///dotfiles '.dotfiles'
 else
 
 DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr urxvt tmux lynx mutt xmonad conky dzen2 dmenu ycm
+all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr gcc python3 urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm
 
 $(DOTFILES):
+	[ ! -h $(CURDIR)/$@ ] &&\
+	[ -e $(CURDIR)/$@ ] &&\
+		mv $(CURDIR)/$@ $(CURDIR)/$@.bak \
+	|| true
 	ln -s $(SRCDIR)/$@ $(CURDIR)/$@
 
 
@@ -45,73 +51,94 @@ fd:
 			mkdir -p bin && unzip fd-v7.3.0-x86_64-pc-windows-msvc.zip -d bin)
 
 .PHONY: entr
-entr:
+entr: gcc
 	command -v entr >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
 			([ -d entr ] || git clone https://github.com/eradman/entr entr) &&\
 			cd entr && ./configure && make test && sudo make install )\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
+.PHONY: gcc
+gcc:
+	command -v gcc >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install -y gcc)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+.PHONY: python3
+python3:
+	command -v python3 >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install -y python3)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
 .PHONY: urxvt
 urxvt:
 	command -v urxvt >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
-			sudo apt install rxvt-unicode)\
+			sudo apt install -y rxvt-unicode)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 .PHONY: tmux
 tmux:
 	command -v tmux >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
-			sudo apt install tmux)\
+			sudo apt install -y tmux)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+.PHONY: vim
+vim:
+	command -v vim >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install -y vim)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 .PHONY: lynx
 lynx:
 	command -v lynx >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
-			sudo apt install lynx)\
+			sudo apt install -y lynx)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 .PHONY: mutt
 mutt:
 	command -v mutt >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
-			sudo apt install mutt)\
+			sudo apt install -y mutt)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 .PHONY: xmonad
 xmonad:
 	command -v xmonad >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
-			sudo apt install xmonad)\
+			sudo apt install -y xmonad)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 .PHONY: conky
 conky:
 	command -v conky >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
-			sudo apt install conky-cli)\
+			sudo apt install -y conky-cli)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 .PHONY: dzen2
 dzen2:
 	command -v dzen2 >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
-			sudo apt install dzen2)\
+			sudo apt install -y dzen2)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 .PHONY: dmenu
 dmenu:
 	command -v dmenu >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
-			sudo apt install suckless-tools)\
+			sudo apt install -y suckless-tools)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 .PHONY: ycm
 ycm: .vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so
 
-.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so: $(SRCDIR)/get-ycm
+.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so: $(SRCDIR)/get-ycm python3
 	$(SRCDIR)/get-ycm
 
 endif
