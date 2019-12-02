@@ -14,7 +14,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr gcc python3 urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm
+all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr gcc python3 urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm cmake
 
 $(DOTFILES):
 	[ ! -h $(CURDIR)/$@ ] &&\
@@ -138,8 +138,15 @@ dmenu:
 .PHONY: ycm
 ycm: .vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so
 
-.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so: $(SRCDIR)/get-ycm python3
+.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so: $(SRCDIR)/get-ycm python3 cmake
 	$(SRCDIR)/get-ycm
+
+.PHONY: cmake
+cmake:
+	command -v cmake >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install -y cmake)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 endif
 
