@@ -14,7 +14,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr gcc python3 urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm cmake
+all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr gcc python3 urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm
 
 $(DOTFILES):
 	[ ! -h $(CURDIR)/$@ ] &&\
