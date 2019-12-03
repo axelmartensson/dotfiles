@@ -7,7 +7,7 @@ ifneq ($(CURDIR),$(HOME))
 switch-tree:
 	$(MAKE) -C $(HOME) -f $(CURDIR)/Makefile SRCDIR=$(CURDIR) $(MAKECMDGOALS)
 test:
-	sudo docker run -v $(CURDIR):/dotfiles ubuntu /bin/bash -c "apt update;apt install -y sudo;$$(cat init)" init file:///dotfiles '.dotfiles'
+	time sudo docker run -v $(CURDIR):/dotfiles ubuntu /bin/bash -c "apt update;apt install -y sudo;$$(cat init)" init file:///dotfiles '.dotfiles'
 else
 
 DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
@@ -72,6 +72,15 @@ python3:
 			sudo apt install -y python3)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
+.PHONY: python3-dev
+python3-dev:
+	false \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+		[ "$$(dpkg-query -W -f='${db:Status-Status}' python3)" != "installed" ] &&\
+			sudo apt install -y python3-dev)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+ 
 .PHONY: urxvt
 urxvt:
 	command -v urxvt >/dev/null \
@@ -138,7 +147,7 @@ dmenu:
 .PHONY: ycm
 ycm: .vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so
 
-.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so: $(SRCDIR)/get-ycm python3 cmake
+.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so: $(SRCDIR)/get-ycm python3 python3-dev cmake
 	$(SRCDIR)/get-ycm
 
 .PHONY: cmake
