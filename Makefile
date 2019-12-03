@@ -8,6 +8,9 @@ switch-tree:
 	$(MAKE) -C $(HOME) -f $(CURDIR)/Makefile SRCDIR=$(CURDIR) $(MAKECMDGOALS)
 test:
 	time sudo docker run -v $(CURDIR):/dotfiles ubuntu /bin/bash -c "apt update;apt install -y sudo;$$(cat init)" init file:///dotfiles '.dotfiles'
+# use 
+# sudo docker system prune
+# to free up space if running out of disk
 else
 
 DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
@@ -30,12 +33,12 @@ deps.d: $(DOTFILES_MANIFEST)
 
 include deps.d
 
-.fzf/bin/fzf: curl
+.fzf/bin/fzf: | curl
 	git clone --depth 1 https://github.com/junegunn/fzf.git .fzf
 	cd .fzf/ && ./install
 
 .PHONY: ripgrep
-ripgrep: curl
+ripgrep: | curl
 	command -v rg >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] && curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep_11.0.1_amd64.deb && sudo dpkg -i ripgrep_11.0.1_amd64.deb )\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]) && \
@@ -43,7 +46,7 @@ ripgrep: curl
 			mkdir -p bin && unzip ripgrep-11.0.1-x86_64-pc-windows-msvc.zip -d bin)
 
 .PHONY: fd
-fd: curl
+fd: | curl
 	command -v fd >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] && curl -LO https://github.com/sharkdp/fd/releases/download/v7.3.0/fd_7.3.0_amd64.deb && sudo dpkg -i fd_7.3.0_amd64.deb )\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]) && \
