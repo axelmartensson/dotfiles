@@ -17,7 +17,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr gcc python3 curl urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm xkbset
+all: $(DOTFILES) .xsession .fzf/bin/fzf ripgrep fd entr gcc python3 curl urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm xkbset
 
 $(DOTFILES):
 	[ ! -h $(CURDIR)/$@ ] &&\
@@ -32,6 +32,9 @@ deps.d: $(DOTFILES_MANIFEST)
 	for dotfile in $(DOTFILES); do echo "$${dotfile}: $(SRCDIR)/$${dotfile}" >> $@; done
 
 include deps.d
+
+.xsession: .xinitrc
+	ln -s $< $@
 
 .fzf/bin/fzf: | curl
 	git clone --depth 1 https://github.com/junegunn/fzf.git .fzf
