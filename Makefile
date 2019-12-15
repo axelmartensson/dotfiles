@@ -17,7 +17,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr gcc python3 curl urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm 
+all: $(DOTFILES) .fzf/bin/fzf ripgrep fd entr gcc python3 curl urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm xkbset
 
 $(DOTFILES):
 	[ ! -h $(CURDIR)/$@ ] &&\
@@ -86,10 +86,9 @@ python3:
 python3-dev:
 	false \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
-		[ "$$(dpkg-query -W -f='${db:Status-Status}' python3)" != "installed" ] &&\
-			sudo apt install -y python3-dev)\
+		([ "$$(dpkg-query -W -f='$${db:Status-Status}' python3)" = "installed" ] ||\
+			sudo apt install -y python3-dev))\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
-
  
 .PHONY: urxvt
 urxvt:
@@ -157,7 +156,7 @@ dmenu:
 .PHONY: ycm
 ycm: .vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so
 
-.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so: $(SRCDIR)/get-ycm python3 python3-dev cmake
+.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so: $(SRCDIR)/get-ycm | python3 python3-dev cmake
 	$(SRCDIR)/get-ycm
 
 .PHONY: cmake
@@ -165,6 +164,14 @@ cmake:
 	command -v cmake >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
 			sudo apt install -y cmake)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+
+.PHONY: xkbset
+xkbset:
+	command -v xkbset >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install -y xkbset)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 endif
