@@ -79,7 +79,9 @@ command Vrc edit ~/.vimrc
 
 " insert reference to the current position on the form filename:linenumber in the
 " paste buffer
-map <Leader>l :s++\= "\n" . expand('%') . ":" . line('.') . ": "+<CR>:norm kddk<CR>
+map <Leader>l :s+$+\= "\n" . expand('%') . ":" . line('.') . ": "+ <bar> norm ddk<CR>
+
+
 
 " execute current line by piping to bash
 nmap <Leader>x !!bash<CR>
