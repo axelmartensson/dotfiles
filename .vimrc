@@ -34,8 +34,9 @@ set clipboard^=unnamedplus
 set number
 set formatoptions=tcq " the default formatoptions
 set formatoptions+=a " autoformatting
-set formatoptions+=w " only autoformat line if it ends with a space
-set nojoinspaces " don't add two spaces between sentences
+set formatoptions+=w " only join line if it ends with a space
+set formatoptions+=j " remove comment leader when joining lines
+set nojoinspaces " don't add two spaces between sentences when joining lines
 set scrolloff=4
 set shell=/bin/bash
 let $BASH_ENV = "~/.bash_aliases"
