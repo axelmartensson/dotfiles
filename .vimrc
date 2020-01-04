@@ -32,6 +32,10 @@ set commentstring=\ #\ %s
 set clipboard^=unnamed
 set clipboard^=unnamedplus
 set number
+set formatoptions=tcq " the default formatoptions
+set formatoptions+=a " autoformatting
+set formatoptions+=w " only autoformat line if it ends with a space
+set nojoinspaces " don't add two spaces between sentences
 set scrolloff=4
 set shell=/bin/bash
 let $BASH_ENV = "~/.bash_aliases"
