@@ -47,7 +47,7 @@ let g:tex_flavor='latex'
 let g:Tex_ViewRule_pdf='zathura'
 let g:Tex_DefaultTargetFormat='pdf'
 
-let g:pathogen_disabled = []
+let g:pathogen_disabled = ['vim-pandoc']
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect() 
 call pathogen#helptags()
