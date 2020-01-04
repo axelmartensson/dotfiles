@@ -1,0 +1,16 @@
+#!/bin/bash
+set -euo pipefail
+
+MOUNT_BASE=/media/axel
+
+[ "$(git rev-parse --is-inside-work-tree)" == "true" ]
+
+path=$(git remote get-url --push origin)
+
+[ -d $path ] # test if mounted
+
+mountpoint=$(dirname $path)
+
+[ mountpoint -q $mountpoint ] # test if mountpoint is indeed a mountpoint
+
+umount $mountpoint
