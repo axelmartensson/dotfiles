@@ -1,0 +1,7 @@
+EXTERNAL:ftp:echo %s | xclip -selection clipboard:TRUE
+EXTERNAL:file:echo %s | xclip -selection clipboard:TRUE
+EXTERNAL:http:echo %s | xclip -selection clipboard:TRUE
+
+EXTERNAL:ftp:echo %s | todbk:TRUE
+EXTERNAL:file:echo %s | todbk:TRUE
+EXTERNAL:http:echo %s | todbk:TRUE

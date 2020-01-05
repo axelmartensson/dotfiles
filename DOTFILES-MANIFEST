@@ -4,6 +4,7 @@
 bin
 z
 .lynxrc
+.lynx
 lynx.cfg
 .tmux.conf
 .bash_exports
