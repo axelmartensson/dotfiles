@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euo pipefail
+f=/home/axel/dbk/$(today).org
+cat >> $f
+
+# push a refresh, equivalent to doing :checktime 
+# manually. assumes the actual update is taken care of 
+# by having set the option :set autoread
+vim --servername dbkd --remote-send ":windo checktime"
