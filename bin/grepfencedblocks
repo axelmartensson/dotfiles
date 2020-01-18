@@ -1,0 +1,54 @@
+#!/usr/bin/python
+import sys
+import fileinput
+if len(sys.argv) < 2:
+    print """
+    usage:
+    catfencedblocks FENCE [-m FILE] FILE...
+    when no options are given, it outputs all text inside fenced blocks 
+    delimited by FENCE it can find
+    """
+    # TODO when you pass -m FILE it moves the text inside fenced blocks to FILE 
+    # and removes the fenced block from the source file
+    # TODO when you pass -w it does not ignore extra whitespace that may be 
+    # present on the same line as FENCE.
+
+fence = sys.argv[1]
+keep_whitespace = True
+files = sys.argv[2:]
+
+
+def printerr(msg):
+    sys.stderr.write(msg)
+def out(msg):
+    sys.stdout.write(msg)
+
+
+def linereference():
+    return fileinput.filename() + ":" + str(fileinput.filelineno()) + ":"
+
+
+output_lines = False
+skip_this_line = False
+for line in fileinput.input(files):
+    if not keep_whitespace:
+        stripped_line = line.strip()
+        if stripped_line != line:
+            printerr("""
+            warning: line
+            """ + linereference() + line + """
+            contains extra whitespace.
+            ignoring extra whitespace by default.
+            """)
+            # TODO you can turn this off by passing in the -w option.
+        line = stripped_line
+    is_fence = line.rstrip('\n') == fence
+    if is_fence:
+        output_lines = not output_lines
+    if is_fence:
+        skip_this_line = True
+    else:
+        skip_this_line = False
+
+    if output_lines and not skip_this_line:
+        out(linereference() + line)
