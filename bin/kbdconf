@@ -1,0 +1,17 @@
+#!/bin/bash
+set -euo pipefail
+
+# setxkbmap -I$HOME/.xkb vicolemak -compat stickykeys -print | xkbcomp 
+# -I$HOME/.xkb - $DISPLAY
+# -compat does not work
+# ~/.xkb/compat/stickykeys
+#
+# full options for accessibility:
+# /usr/share/X11/xkb/compat/accessx
+# /usr/include/X11/keysymdef.h
+# using xkbset instead
+
+setxkbmap -I$HOME/.xkb vicolemak -print | xkbcomp -I$HOME/.xkb - $DISPLAY
+xset r 66
+xkbset sticky -twokey latchlock # nothing in front means enable the option, `-` in front disables it
+xkbset exp =sticky =twokey =latchlock # this commands means after expiry period these remain unchanged, from https://askubuntu.com/a/120023 . see `xkbset q exp` for current status
