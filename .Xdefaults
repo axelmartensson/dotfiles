@@ -1,7 +1,7 @@
 URxvt.geometry: 86x24
-URxvt.font: xft:ProggyCleanTTSZBP:style=Regular:pixelsize=32
+URxvt.font: xft:ProggyCleanTTSZBP:style=Regular:pixelsize=30
 
-Xft.dpi:        118
+Xft.dpi:        120
 Xft.antialias:  false
 Xft.rgba:       rgb
 Xft.hinting:    true
