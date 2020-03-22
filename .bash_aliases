@@ -25,6 +25,7 @@ alias gps="git push"
 alias gpu="git pull"
 alias glg="git log"
 alias gdf="git diff"
+alias gdt="git difftool"
 ############################
 
 ###### SVN ALIASES #########
