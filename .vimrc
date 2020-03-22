@@ -29,10 +29,12 @@ set ruler
 set isfname-=: " make file linenumber , e.g.: file.c:32 work with gF on windows
 set wildmenu
 set iskeyword+=- " make words-with-hyphens count as one word
-set commentstring=\ #\ %s
 set clipboard^=unnamed
 set clipboard^=unnamedplus
+set splitbelow " open new splits below the current one instead of above
+set splitright " open new splits to the right instead of to the left
 set number
+set relativenumber
 set formatoptions=tcq " the default formatoptions
 set formatoptions+=a " autoformatting
 set formatoptions+=w " only join line if it ends with a space
