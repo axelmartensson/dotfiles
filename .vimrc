@@ -93,5 +93,7 @@ map <Leader>l :s+$+\= "\n" . expand('%') . ":" . line('.') . ": "+ <bar> norm dd
 
 " execute current line by piping to bash
 nmap <Leader>x !!bash<CR>
+" execute current line interactively in a new :terminal window.
+nmap <space>X :terminal <CR>
 " execute current selection by piping to bash
 vmap <Leader>x !bash<CR>
