@@ -16,3 +16,4 @@ lynx.cfg
 .fonts.conf
 .xmonad
 .xinitrc
+.spectrwm.conf
