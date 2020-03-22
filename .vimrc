@@ -4,11 +4,12 @@ let mapleader = "\<space>"
 
 nmap h <PageUp>
 nmap l <PageDown>
+nmap gn :cnext<cr>
+nmap gp :cprev<cr>
+nmap <Leader>q :qa<cr>
 
 let g:pandoc#formatting#mode = 'hA'
 
-
-let g:monochrome_italic_comments = 1
 
 map <Leader>o :Files<Cr>
 map <Leader>g :Buffers<Cr>
