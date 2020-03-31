@@ -15,6 +15,10 @@ map <Leader>o :Files<Cr>
 map <Leader>g :Buffers<Cr>
 set runtimepath^=~/.fzf
 
+
+inoremap <c-f> <c-x><c-f>
+inoremap <c-l> <c-x><c-l>
+
 set nocompatible
 set encoding=utf8
 set expandtab
