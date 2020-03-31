@@ -11,6 +11,6 @@ path=$(git remote get-url --push origin)
 
 mountpoint=$(dirname $path)
 
-[ mountpoint -q $mountpoint ] # test if mountpoint is indeed a mountpoint
+mountpoint -q $mountpoint # test if mountpoint is indeed a mountpoint
 
 umount $mountpoint
