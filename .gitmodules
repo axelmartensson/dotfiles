@@ -37,3 +37,6 @@
 [submodule ".vim/bundle/vim-dispatch"]
 	path = .vim/bundle/vim-dispatch
 	url = https://github.com/tpope/vim-dispatch
+[submodule ".vim/bundle/vim-lion"]
+	path = .vim/bundle/vim-lion
+	url = https://github.com/tommcdo/vim-lion
