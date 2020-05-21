@@ -40,3 +40,6 @@
 [submodule ".vim/bundle/vim-lion"]
 	path = .vim/bundle/vim-lion
 	url = https://github.com/tommcdo/vim-lion
+[submodule ".vim/bundle/vim-gutentags"]
+	path = .vim/bundle/vim-gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags
