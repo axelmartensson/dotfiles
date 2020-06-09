@@ -43,3 +43,6 @@
 [submodule ".vim/bundle/vim-gutentags"]
 	path = .vim/bundle/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags
+[submodule ".vim/bundle/vim-sendtoterm"]
+	path = .vim/bundle/vim-sendtoterm
+	url = https://github.com/habamax/vim-sendtoterm.git
