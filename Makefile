@@ -1,3 +1,9 @@
+# USAGE
+# for a freshly checked out repo, don't forget to run
+# git submodule update --init
+# TODO this command is idempotent, so it could maybe be run on every 
+# invocation of make
+# grep submodule .git/config || git submodule update --init
 
 ifneq ($(CURDIR),$(HOME))
 
@@ -169,6 +175,19 @@ cmake:
 			sudo apt install -y cmake)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
+.PHONY: code
+code: $(SRCDIR)/get-code | gpg
+	command -v cmake >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			$(SRCDIR)/get-code)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+.PHONY: gpg
+gpg:
+	command -v gpg >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install -y gpg)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 .PHONY: xkbset
 xkbset:
