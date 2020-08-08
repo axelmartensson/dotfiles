@@ -177,7 +177,7 @@ cmake:
 
 .PHONY: code
 code: $(SRCDIR)/get-code | gpg
-	command -v cmake >/dev/null \
+	command -v code >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
 			$(SRCDIR)/get-code)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
