@@ -23,7 +23,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .xsession .fzf/bin/fzf ripgrep fd entr gcc python3 curl urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm xkbset
+all: $(DOTFILES) .xsession .fzf/bin/fzf ripgrep fd entr gcc python3 curl urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm gpg code xkbset
 
 $(DOTFILES):
 	[ ! -h $(CURDIR)/$@ ] &&\
