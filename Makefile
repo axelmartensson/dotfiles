@@ -188,6 +188,7 @@ code: $(SRCDIR)/get-code | gpg
 	# ms-vscode.cpptools-0.29.0
 	# redhat.java-0.65.0
 	# vscjava.vscode-java-debug-0.27.1
+	# vscodevim.vim-1.16.0
 
 .PHONY: gpg
 gpg:
