@@ -181,6 +181,7 @@ code: $(SRCDIR)/get-code | gpg
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
 			$(SRCDIR)/get-code)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+	# for turning of telemetry see https://code.visualstudio.com/docs/supporting/faq#_how-to-disable-telemetry-reporting
 
 .PHONY: gpg
 gpg:
