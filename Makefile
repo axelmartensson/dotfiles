@@ -1,6 +1,6 @@
 # USAGE
 # for a freshly checked out repo, don't forget to run
-# git submodule update --init
+# git submodule update --init --recursive
 # TODO this command is idempotent, so it could maybe be run on every 
 # invocation of make
 # grep submodule .git/config || git submodule update --init
