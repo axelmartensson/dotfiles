@@ -1,5 +1,6 @@
 #! /bin/bash
 set -euo pipefail
+
 _home_bin() {
     _files() {
         for f in ~/bin/*
@@ -11,5 +12,18 @@ _home_bin() {
     return 0;
 }
 complete -F _home_bin vicmd
+
+
+_home_man() {
+    _files() {
+        for f in ~/man/*
+        do
+            echo $(basename -s .txt $f)
+        done
+    }
+    COMPREPLY=( $(compgen -W "$(_files)" -- ${COMP_WORDS[COMP_CWORD]}) )
+    return 0;
+}
+complete -F _home_man mann
 
 set +euo pipefail
