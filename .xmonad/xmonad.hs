@@ -28,6 +28,7 @@ myKeys = [
         ((mod1Mask, xK_p), spawn "dmenu_run -fn '-*-*-*-*-*-*-16-*-*-*-*-*-*-*'"),
         ((mod1Mask, xK_Escape), spawn "/home/axel/.xmonad/keyboardSwitch.sh"),
         ((mod1Mask, xK_Super_L), spawn "/home/axel/.xmonad/lockScreen.sh"),
+        ((mod4Mask, xK_j), spawn "urxvt -e dbk"),
         ((mod1Mask, xK_b), sendMessage ToggleStruts),
         ((mod1Mask, xK_z), spawn "urxvt")
         ]++
