@@ -16,6 +16,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+alias e="vim"
+
 ###### GIT ALIASES #########
 #alias git=hub # wrapper for integration with github
 alias gca="git commit -a"
