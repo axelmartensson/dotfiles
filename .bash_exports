@@ -5,7 +5,8 @@ export EDITOR=/usr/bin/vim
 export LYNX_CFG=~/lynx.cfg
 
 # fzf
-export FZF_DEFAULT_COMMAND="fd -t f . $HOME"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+# export FZF_DEFAULT_COMMAND="fd -t f . $HOME"
+export FZF_DEFAULT_COMMAND="fd -t f"
+# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd -t d"
 
