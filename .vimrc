@@ -1,6 +1,12 @@
 inoremap ii <ESC>
+" also remapped delete key on kinesis advantage to escape, 
+" but this is more uniform
+
+
 nnoremap <SPACE> <Nop>
 let mapleader = "\<space>" 
+
+nmap Y y$
 
 nmap h <PageUp>
 nmap l <PageDown>
@@ -12,7 +18,7 @@ let g:pandoc#formatting#mode = 'hA'
 
 
 map <Leader>o :Files<Cr>
-map <Leader>g :Buffers<Cr>
+map <Leader>b :Buffers<Cr>
 set runtimepath^=~/.fzf
 
 
@@ -21,8 +27,8 @@ inoremap <c-l> <c-x><c-l>
 
 set nocompatible
 set encoding=utf8
-set expandtab
-set tabstop=4
+" set expandtab
+" set tabstop=4
 set autoindent
 set autowriteall
 set autoread
@@ -39,23 +45,50 @@ set splitbelow " open new splits below the current one instead of above
 set splitright " open new splits to the right instead of to the left
 set number
 set relativenumber
-set formatoptions=tcq " the default formatoptions
-set formatoptions+=a " autoformatting
-set formatoptions+=w " only join line if it ends with a space
-set formatoptions+=j " remove comment leader when joining lines
-set nojoinspaces " don't add two spaces between sentences when joining lines
+set tw=60 " good fit on 29" screen
+" setting formatting options, see `:h fo-table` for details on each flag
+" enable formatting of comments with gq
+set  formatoptions=q
+" enable autoformatting
+"set formatoptions+=a
+" autoformatting of text, applies to "
+" anything that is not-comments, such as code. if set here, 
+" need to unset it in filetype specific config for code.
+" set formatoptions+=t
+" autoformatting of comments
+set formatoptions+=c
+" insert comment leader at start of line while writing a 
+" comment in insert mode
+set formatoptions+=r
+" insert comment leader at start of line while on a comment 
+" in normal mode and hitting o/O
+set formatoptions+=o
+" only join line if it ends with a space
+set formatoptions+=w
+" remove comment leader when joining lines
+set formatoptions+=j
+" don't add two spaces between sentences when joininglines
+set nojoinspaces
+" format numbered lists when formatting text
+set formatoptions+=n
+" don't break long lines when in insert mode. this relaxes 
+" autoformatting which is useful in some cases. if the line 
+" started as a long line, it will remain a long line.
+set formatoptions+=l
 set scrolloff=4
 set shell=/bin/bash
 let $BASH_ENV = "~/.bash_aliases"
 
-set shiftwidth=4 
-set softtabstop=4
+" set shiftwidth=4 
+" set softtabstop=4
 set bg=dark
 let g:tex_flavor='latex'
 let g:Tex_ViewRule_pdf='zathura'
 let g:Tex_DefaultTargetFormat='pdf'
+" quiet a warning when putting an opening brace on it's own line, from https://github.com/vim-syntastic/syntastic/issues/2169
+let g:syntastic_tex_lacheck_quiet_messages = { 'regex': '\Vpossible unwanted space at' }
 
-let g:pathogen_disabled = ['vim-pandoc']
+let g:pathogen_disabled = ['supertab', 'YouCompleteMe', 'vim-pandoc', 'coc.nvim']
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect() 
 call pathogen#helptags()
@@ -70,8 +103,26 @@ au BufRead,BufNewFile *.tt set filetype=java
 
 autocmd FileType python BracelessEnable +indent +fold
 
+augroup CursorLine
+	" Highlight the line under the cursor in the 
+	" active window
+	" from https://vim.fandom.com/wiki/Highlight_current_line
+	au!
+	au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+	au WinLeave * setlocal nocursorline
+augroup END
+
+
+au BufRead,BufNewFile *.pl set filetype=perl
+
 " autosave when buffer is modified
-autocmd BufRead * autocmd TextChanged,TextChangedI <buffer> silent write
+" autocmd BufRead * autocmd TextChanged,TextChangedI <buffer> silent write
+" autosave every updatetime milliseconds
+autocmd BufRead * autocmd CursorHold <buffer> if !&readonly | silent checktime | silent write
+" only autodetect updates to the underlying file
+" autocmd BufRead * autocmd CursorHold <buffer> if !&readonly | silent checktime
+" set updatetime to 1 second instead of the default 4 seconds
+set updatetime=1000
 
 " UltiSnips triggering. from https://github.com/ycm-core/YouCompleteMe/issues/2032
 let g:UltiSnipsExpandTrigger = '<C-j>'
@@ -89,15 +140,21 @@ command Gica Gcommit -a
 
 command Vrc edit ~/.vimrc
 
-" insert reference to the current position on the form filename:linenumber in the
+" insert reference to the current position on the form filename:linenumber: in the
 " paste buffer
-map <Leader>l :s+$+\= "\n" . expand('%') . ":" . line('.') . ": "+ <bar> norm ddk<CR>
+map <Leader>l :s+$+\= "\n" . expand('%') . ":" . line('.') . ":"+ <bar> norm ddk<CR>
 
+map <leader>n :new <bar> set buftype=nofile<CR>
 
+map <leader>f <c-w>F
 
 " execute current line by piping to bash
 nmap <Leader>x !!bash<CR>
 " execute current line interactively in a new :terminal window.
-nmap <space>X :terminal <CR>
+" using this with the cursor on a blank line opens up a new terminal.
+" get to the next blank line fast with '}'
+" useful for interactive programs (i.e. that require tty)
+nmap <localleader>x :terminal <c-r><c-l><CR>
+
 " execute current selection by piping to bash
 vmap <Leader>x !bash<CR>
