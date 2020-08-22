@@ -19,11 +19,13 @@ test:
 # to free up space if running out of disk
 else
 
+FORCE := $(shell touch force && echo force)
+
 DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .xsession .fzf/bin/fzf ripgrep fd entr gcc python3 curl urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm gpg code eclipse openjdk xkbset
+all: $(DOTFILES) .xsession .fzf/bin/fzf ripgrep fd entr gcc python3 curl urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm gpg code eclipse .eclipse openjdk xkbset
 
 $(DOTFILES):
 	[ ! -h $(CURDIR)/$@ ] &&\
@@ -196,6 +198,31 @@ eclipse: eclipse/eclipse | openjdk
 eclipse/eclipse:
 	wget https://ftp.acc.umu.se/mirror/eclipse.org/technology/epp/downloads/release/2020-06/R/eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz
 	tar -xf eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz
+
+.PHONY: eclim
+eclim: eclipse/eclimd
+eclipse/eclimd: eclim/README.rst eclipse/eclipse | vim
+	# Fixing https://github.com/ervandew/eclim/issues/432
+	#
+	# java.lang.RuntimeException: Application 
+	# "org.eclim.application" could not be found in the 
+	# registry. 
+	#
+	# by setting eclipse.dest=eclipse instead of .eclipse. This installs eclim straight in the eclipse install folder, not in .eclipse.
+	cd eclim && \
+		ant \
+		-quiet \
+		-logger org.apache.tools.ant.NoBannerLogger \
+		-Declipse.home=$(HOME)/eclipse \
+		-Declipse.dest=$(HOME)/eclipse \
+		-Dvim.files=$(HOME)/.vim
+
+eclim/README.rst:
+	git clone git://github.com/ervandew/eclim.git
+	# Applies PR to fix the StubUtility compile errors
+	# https://github.com/ervandew/eclim/pull/602
+	git -C eclim pull origin pull/602/head
+
 
 .PHONY: openjdk
 openjdk:
