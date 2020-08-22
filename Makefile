@@ -23,7 +23,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .xsession .fzf/bin/fzf ripgrep fd entr gcc python3 curl urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm gpg code xkbset
+all: $(DOTFILES) .xsession .fzf/bin/fzf ripgrep fd entr gcc python3 curl urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm gpg code eclipse openjdk xkbset
 
 $(DOTFILES):
 	[ ! -h $(CURDIR)/$@ ] &&\
@@ -189,6 +189,20 @@ code: $(SRCDIR)/get-code | gpg
 	# redhat.java-0.65.0
 	# vscjava.vscode-java-debug-0.27.1
 	# vscodevim.vim-1.16.0
+
+.PHONY: eclipse
+eclipse: eclipse/eclipse | openjdk
+
+eclipse/eclipse:
+	wget https://ftp.acc.umu.se/mirror/eclipse.org/technology/epp/downloads/release/2020-06/R/eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz
+	tar -xf eclipse-java-2020-06-R-linux-gtk-x86_64.tar.gz
+
+.PHONY: openjdk
+openjdk:
+	command -v javac >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install -y openjdk-11-jdk)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 .PHONY: gpg
 gpg:
