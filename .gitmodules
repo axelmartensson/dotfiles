@@ -52,3 +52,9 @@
 [submodule ".vim/bundle/AutoComplPop"]
 	path = .vim/bundle/AutoComplPop
 	url = https://github.com/vim-scripts/AutoComplPop
+[submodule ".vim/bundle/vim-gitgutter"]
+	path = .vim/bundle/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
+[submodule ".vim/bundle/vim-lsc"]
+	path = .vim/bundle/vim-lsc
+	url = https://github.com/natebosch/vim-lsc
