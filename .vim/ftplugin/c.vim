@@ -4,6 +4,8 @@
 "inoremap _ -
 "use `iunmap -`  and `iunmap _` to clear the mapping
 
+set commentstring=//\ %s
+
 map <Leader>r :Make<CR>
 " conflicts with Open file binding
 " map <Leader>f :YcmCompleter FixIt<CR>
@@ -23,8 +25,3 @@ nnoremap <silent> <Leader>k <c-w>}
 " load the termdebug plugin, provides :Termdebug and :TermdebugCommand
 packadd termdebug
 
-" load the ft-man-plugin, provides the :Man command which opens up the manpage 
-" in a new split instead of running an external program. the man window also 
-" supports navigation of manpages with C-] and C-T
-
-runtime ftplugin/man.vim
