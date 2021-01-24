@@ -10,9 +10,25 @@ nmap Y y$
 
 nmap h <PageUp>
 nmap l <PageDown>
-nmap gn :cnext<cr>
-nmap gp :cprev<cr>
 nmap <Leader>q :qa<cr>
+
+nmap <bs><LeftMouse> :cnext<cr>
+nmap <bs><RightMouse> :cprev<cr>
+
+nmap <BS>n :cnext<cr>
+nmap <Leader>p :cprev<cr>
+
+nmap [q :cnext<cr>
+nmap ]q :cprev<cr>
+
+nmap [w :lnext<cr>
+nmap ]w :lprev<cr>
+
+map <X1Mouse> <C-O>
+map <X2Mouse> <C-I>
+
+
+map <bs>e :Make!<cr>
 
 let g:pandoc#formatting#mode = 'hA'
 
@@ -21,24 +37,74 @@ map <Leader>o :Files<Cr>
 map <Leader>b :Buffers<Cr>
 set runtimepath^=~/.fzf
 
+imap <c-f> <c-x><c-f>
+imap <c-l> <c-x><c-l>
 
-inoremap <c-f> <c-x><c-f>
-inoremap <c-l> <c-x><c-l>
+" use fzf variants to provide these completion kinds
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
+
+
+" searching and grepping
+if executable('rg')
+	" make :grep and :psearch use ripgrep
+	set grepprg=rg\ --vimgrep
+	
+	" make file:line:col: be recognized so that when it 
+	" you can jump right to the column from the quickfix 
+	" list
+	set grepformat+=%f:%l:%c:%m
+	" TODO hard-set grep format to only this instead?
+	" reinserts the less specific versions after this, 
+	" otherwise they get used instead
+	set grepformat-=%f:%l:%m
+	set grepformat+=%f:%l:%m
+	set grepformat-=%f:%l%m
+	set grepformat+=%f:%l%m
+
+	function! FindSymbol()
+		:cexpr system("rg --fixed-strings --vimgrep '" . expand("<cword>") . "'")
+	endfunction
+else
+	function! FindSymbol()
+		:cexpr system("grep -F -n '" . expand("<cword>") . "'")
+	endfunction
+endif
+
+" find symbol under cursor
+map <leader>s :call FindSymbol()<cr>
+
+
+
+" ignore vcs dirs when expanding wildcards.
+set wildignore+=*/.git/*
+" ignore tags files
+set wildignore+=tags
+
+set mouse=a
 set nocompatible
 set encoding=utf8
+set noswapfile
 " set expandtab
 " set tabstop=4
 set autoindent
 set autowriteall
 set autoread
 set backspace=indent,eol,start
+set completeopt=menu,menuone
+" only show any additional information such as attached docs in the preview window and only if it 
+" is already open
+set completeopt+=preview
 set incsearch
 set ignorecase
 set ruler
 set isfname-=: " make file linenumber , e.g.: file.c:32 work with gF on windows
 set wildmenu
-set iskeyword+=- " make words-with-hyphens count as one word
+ " make words-with-hyphens count as one word
+ " comment this out when working with C, lookup of `var` in  
+ " `var->` doesn't work otherwise
+" set iskeyword+=-
 set clipboard^=unnamed
 set clipboard^=unnamedplus
 set splitbelow " open new splits below the current one instead of above
@@ -75,7 +141,8 @@ set formatoptions+=n
 " autoformatting which is useful in some cases. if the line 
 " started as a long line, it will remain a long line.
 set formatoptions+=l
-set scrolloff=4
+" set scrolloff=4
+set scrolloff=0
 set shell=/bin/bash
 let $BASH_ENV = "~/.bash_aliases"
 
@@ -88,7 +155,7 @@ let g:Tex_DefaultTargetFormat='pdf'
 " quiet a warning when putting an opening brace on it's own line, from https://github.com/vim-syntastic/syntastic/issues/2169
 let g:syntastic_tex_lacheck_quiet_messages = { 'regex': '\Vpossible unwanted space at' }
 
-let g:pathogen_disabled = ['supertab', 'YouCompleteMe', 'vim-pandoc', 'coc.nvim']
+let g:pathogen_disabled = ['syntastic', 'vim-pandoc', 'coc.nvim', 'YouCompleteMe', 'slimv']
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect() 
 call pathogen#helptags()
@@ -118,9 +185,9 @@ au BufRead,BufNewFile *.pl set filetype=perl
 " autosave when buffer is modified
 " autocmd BufRead * autocmd TextChanged,TextChangedI <buffer> silent write
 " autosave every updatetime milliseconds
-autocmd BufRead * autocmd CursorHold <buffer> if !&readonly | silent checktime | silent write
+autocmd BufRead * autocmd CursorHold <buffer> if !&readonly | if filewritable(expand("%")) | silent checktime | silent write | endif | endif
 " only autodetect updates to the underlying file
-" autocmd BufRead * autocmd CursorHold <buffer> if !&readonly | silent checktime
+" autocmd BufRead * autocmd CursorHold <buffer> if !&readonly | silent checktime | endif
 " set updatetime to 1 second instead of the default 4 seconds
 set updatetime=1000
 
@@ -138,7 +205,15 @@ command Gipu Gpull
 command Gips Git push
 command Gica Gcommit -a
 
+map <leader>c :Gcommit -a<CR>
+map <leader>d :Gdiff<CR>
+
+
 command Vrc edit ~/.vimrc
+
+command Ecolors edit ~/.vim/bundle/vim-monochrome/colors/monochrome.vim
+" lists all the active syntax highlighting groups in their own color (from :help hi)
+command Hitest source $VIMRUNTIME/syntax/hitest.vim
 
 " insert reference to the current position on the form filename:linenumber: in the
 " paste buffer
@@ -158,3 +233,7 @@ nmap <localleader>x :terminal <c-r><c-l><CR>
 
 " execute current selection by piping to bash
 vmap <Leader>x !bash<CR>
+
+" the :Man command opens up the manpage in a new split
+runtime ftplugin/man.vim
+set keywordprg=:Man
