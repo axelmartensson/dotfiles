@@ -237,3 +237,5 @@ vmap <Leader>x !bash<CR>
 " the :Man command opens up the manpage in a new split
 runtime ftplugin/man.vim
 set keywordprg=:Man
+
+runtime local/*.vim
