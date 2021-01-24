@@ -25,7 +25,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .xsession .fzf/bin/fzf ripgrep fd entr gcc python3 curl urxvt tmux vim lynx mutt xmonad conky dzen2 dmenu ycm gpg code eclipse .eclipse openjdk xkbset
+all: $(DOTFILES) .xsession .fzf/bin/fzf ripgrep fd entr gcc python3 python3-pip curl xterm tmux vim lynx mutt exuberant-ctags spectrwm conky dzen2 dmenu ycm gpg pass code eclipse .eclipse openjdk xkbset
 
 $(DOTFILES):
 	[ ! -h $(CURDIR)/$@ ] &&\
@@ -100,6 +100,20 @@ python3-dev:
 		([ "$$(dpkg-query -W -f='$${db:Status-Status}' python3)" = "installed" ] ||\
 			sudo apt install -y python3-dev))\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+.PHONY: python3-pip
+python3-pip:
+	command -v pip3 >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install -y python3-pip)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+.PHONY: exuberant-ctags
+exuberant-ctags:
+	command -v ctags-exuberant >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install -y exuberant-ctags)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
  
 .PHONY: urxvt
 urxvt:
@@ -135,6 +149,17 @@ mutt:
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
 			sudo apt install -y mutt)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+
+.PHONY: irssi
+irssi:
+	command -v irssi >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			git clone https://github.com/irssi/irssi ;\
+			cd irssi && ./autogen.sh && ./configure && make && sudo make install ;\
+	)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
 
 .PHONY: xmonad
 xmonad:
@@ -201,7 +226,7 @@ eclipse/eclipse:
 
 .PHONY: eclim
 eclim: eclipse/eclimd
-eclipse/eclimd: eclim/README.rst eclipse/eclipse | vim
+eclipse/eclimd: $(FORCE) eclim/README.rst eclipse/eclipse | vim
 	# Fixing https://github.com/ervandew/eclim/issues/432
 	#
 	# java.lang.RuntimeException: Application 
@@ -232,10 +257,24 @@ openjdk:
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 .PHONY: gpg
-gpg:
+gpg: | pinentry-tty
 	command -v gpg >/dev/null \
 		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
 			sudo apt install -y gpg)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+.PHONY: pinentry-tty
+pinentry-tty:
+	command -v pinentry-tty >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install -y pinentry-tty)\
+		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
+
+.PHONY: pass
+pass:
+	command -v pass >/dev/null \
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] &&\
+			sudo apt install -y pass)\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]))
 
 .PHONY: xkbset
