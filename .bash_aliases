@@ -18,6 +18,8 @@ alias l='ls -CF'
 
 alias e="vim"
 
+alias cmx="chmod +x"
+
 ###### GIT ALIASES #########
 #alias git=hub # wrapper for integration with github
 alias gca="git commit -a"
@@ -37,5 +39,10 @@ alias sst="svn status --ignore-externals"
 alias slg="svn log"
 alias sdf="svn diff"
 ############################
-alias install="sudo apt install"
+
+
+###### DOCKER ALIASES ######
+alias drrun="sudo docker run -it"
+
+alias install="sudo apt install -y"
 
