@@ -1,0 +1,4 @@
+# syntax: command line options, one per line
+
+# ignore tags files
+--glob=!tags
