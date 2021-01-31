@@ -29,6 +29,7 @@ map <X2Mouse> <C-I>
 
 
 map <bs>e :Make!<cr>
+map <bs>i :Termdebug<cr>
 
 let g:pandoc#formatting#mode = 'hA'
 

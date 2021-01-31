@@ -25,3 +25,25 @@ nnoremap <silent> <Leader>k <c-w>}
 " load the termdebug plugin, provides :Termdebug and :TermdebugCommand
 packadd termdebug
 
+" Rerun the currently running program
+function! Rerun()
+	:Stop
+	:Run
+endfunction
+
+
+" Run to the current line
+function! RunToLine()
+	:Break
+	:Continue
+	:Clear
+endfunction
+
+nmap <f4> :Finish<CR>
+nmap <f5> :Step<CR>
+nmap <f6> :Over<CR>
+nmap <f7> :call RunToLine()<CR>
+nmap <f8> :Continue<CR>
+nmap <c-b> :Break<CR>
+nmap <c-k> :call Rerun()<CR>
+
