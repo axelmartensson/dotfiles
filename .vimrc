@@ -65,11 +65,11 @@ if executable('rg')
 	set grepformat+=%f:%l%m
 
 	function! FindSymbol()
-		:cexpr system("rg --fixed-strings --vimgrep '" . expand("<cword>") . "'")
+		:cexpr system("rg --fixed-strings --vimgrep " . shellescape(expand("<cword>")))
 	endfunction
 else
 	function! FindSymbol()
-		:cexpr system("grep -F -n '" . expand("<cword>") . "'")
+		:cexpr system("grep -F -n " . shellescape(expand("<cword>")))
 	endfunction
 endif
 
