@@ -156,6 +156,13 @@ let g:Tex_DefaultTargetFormat='pdf'
 " quiet a warning when putting an opening brace on it's own line, from https://github.com/vim-syntastic/syntastic/issues/2169
 let g:syntastic_tex_lacheck_quiet_messages = { 'regex': '\Vpossible unwanted space at' }
 
+" remove top banner
+" let g:netrw_banner = 0
+" expandable tree file listing 
+let g:netrw_liststyle=3
+" netrw window height when split
+let g:netrw_winsize=30
+
 let g:pathogen_disabled = ['syntastic', 'vim-pandoc', 'coc.nvim', 'YouCompleteMe', 'slimv']
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect() 
