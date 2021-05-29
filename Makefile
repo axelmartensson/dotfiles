@@ -51,10 +51,10 @@ include deps.d
 .PHONY: ripgrep
 ripgrep: | curl
 	command -v rg >/dev/null \
-		|| ([ "$$(uname -sm)" = "Linux x86_64" ] && curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep_11.0.1_amd64.deb && sudo dpkg -i ripgrep_11.0.1_amd64.deb )\
+		|| ([ "$$(uname -sm)" = "Linux x86_64" ] && curl -LO https://github.com/BurntSushi/ripgrep/releases/download/12.1.1/ripgrep_12.1.1_amd64.deb && sudo dpkg -i ripgrep_12.1.1_amd64.deb )\
 		|| (([ "$$(uname -sm)" = "MINGW x86_64" ] || [ "$$(uname -sm)" = "MSYS x86_64" ]) && \
-			curl https://raw.githubusercontent.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep-11.0.1-x86_64-pc-windows-msvc.zip -o ripgrep-11.0.1-x86_64-pc-windows-msvc.zip && \
-			mkdir -p bin && unzip ripgrep-11.0.1-x86_64-pc-windows-msvc.zip -d bin)
+			curl https://raw.githubusercontent.com/BurntSushi/ripgrep/releases/download/12.1.1/ripgrep-12.1.1-x86_64-pc-windows-msvc.zip -o ripgrep-12.1.1-x86_64-pc-windows-msvc.zip && \
+			mkdir -p bin && unzip ripgrep-12.1.1-x86_64-pc-windows-msvc.zip -d bin)
 
 .PHONY: fd
 fd: | curl
