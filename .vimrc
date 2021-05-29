@@ -193,9 +193,16 @@ au BufRead,BufNewFile *.pl set filetype=perl
 " autosave when buffer is modified
 " autocmd BufRead * autocmd TextChanged,TextChangedI <buffer> silent write
 " autosave every updatetime milliseconds
-autocmd BufRead * autocmd CursorHold <buffer> if !&readonly | if filewritable(expand("%")) | silent checktime | silent write | endif | endif
-" only autodetect updates to the underlying file
-" autocmd BufRead * autocmd CursorHold <buffer> if !&readonly | silent checktime | endif
+function AutoSave()
+	if !&readonly 
+		if &buftype == ""
+			silent checktime 
+			" comment this out to only autodetect updates to the underlying file
+			silent write 
+		endif 
+	endif
+endfunction 
+autocmd BufRead * autocmd CursorHold <buffer> :call AutoSave()
 " set updatetime to 1 second instead of the default 4 seconds
 set updatetime=1000
 
