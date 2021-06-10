@@ -37,7 +37,7 @@ include deps.d
 
 .PHONY: submodules
 submodules:
-	grep submodule $(SRCDIR)/.git/config || git -C $(SRCDIR) submodule update --init -recursive
+	grep submodule $(SRCDIR)/.git/config || cd $(SRCDIR) && git submodule update --init --recursive
 
 .xsession: .xinitrc
 	ln -s $< $@
