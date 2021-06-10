@@ -1,9 +1,3 @@
-# USAGE
-# for a freshly checked out repo, don't forget to run
-# git submodule update --init --recursive
-# TODO this command is idempotent, so it could maybe be run on every 
-# invocation of make
-# grep submodule .git/config || git submodule update --init
 
 ifneq ($(CURDIR),$(HOME))
 
@@ -25,7 +19,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) .xsession .fzf/bin/fzf ripgrep fd entr gcc python3 python3-pip curl xterm tmux vim lynx mutt exuberant-ctags spectrwm conky dzen2 dmenu ycm gpg pass code eclipse .eclipse openjdk xkbset
+all: $(DOTFILES) submodules .xsession .fzf/bin/fzf ripgrep fd entr gcc python3 python3-pip curl xterm tmux vim lynx mutt exuberant-ctags spectrwm conky dzen2 dmenu ycm gpg pass code eclipse .eclipse openjdk xkbset
 
 $(DOTFILES):
 	[ ! -h $(CURDIR)/$@ ] &&\
@@ -40,6 +34,10 @@ deps.d: $(DOTFILES_MANIFEST)
 	for dotfile in $(DOTFILES); do echo "$${dotfile}: $(SRCDIR)/$${dotfile}" >> $@; done
 
 include deps.d
+
+.PHONY: submodules
+submodules:
+	grep submodule $(SRCDIR)/.git/config || git -C $(SRCDIR) submodule update --init -recursive
 
 .xsession: .xinitrc
 	ln -s $< $@
