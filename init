@@ -9,18 +9,9 @@ set -euo pipefail
 dotfiles_uri=$1
 target_path=${2:-dotfiles}
 
-sudo apt update
-
-command -v make >/dev/null \
-    || ([ "$(uname -sm)" = "Linux x86_64" ] &&\
-        sudo apt install -y make)\
-    || (([ "$(uname -sm)" = "MINGW x86_64" ] || [ "$(uname -sm)" = "MSYS x86_64" ]))
-
-command -v git >/dev/null \
-    || ([ "$(uname -sm)" = "Linux x86_64" ] &&\
-        sudo apt install -y git)\
-    || (([ "$(uname -sm)" = "MINGW x86_64" ] || [ "$(uname -sm)" = "MSYS x86_64" ]))
-
+apt update
+apt upgrade -y
+apt install -y sudo make git
 
 [ -d $target_path ] || git clone $dotfiles_uri $target_path
 cd $target_path
