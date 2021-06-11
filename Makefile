@@ -19,7 +19,7 @@ DOTFILES_MANIFEST := $(SRCDIR)/DOTFILES-MANIFEST
 
 DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 
-all: $(DOTFILES) submodules .xsession .fzf/bin/fzf ripgrep fd entr gcc python3 python3-pip curl xterm tmux vim lynx mutt exuberant-ctags spectrwm conky dzen2 dmenu ycm gpg pass code eclipse .eclipse openjdk xkbset
+all: $(DOTFILES) .xsession .fzf/bin/fzf ripgrep fd entr gcc python3 python3-pip curl xterm tmux vim lynx mutt exuberant-ctags spectrwm conky dzen2 dmenu ycm gpg pass code eclipse .eclipse openjdk xkbset
 
 $(DOTFILES):
 	[ ! -h $(CURDIR)/$@ ] &&\
