@@ -68,6 +68,7 @@ if executable('rg')
 		:cexpr system("rg --fixed-strings --vimgrep " . shellescape(expand("<cword>")))
 	endfunction
 else
+	set grepprg=rgrep\ --exclude-dir=.git
 	function! FindSymbol()
 		:cexpr system("grep -F -n " . shellescape(expand("<cword>")))
 	endfunction
@@ -76,7 +77,8 @@ endif
 " find symbol under cursor
 map <leader>s :call FindSymbol()<cr>
 
-
+" global search
+map g/ :grep<space>
 
 " ignore vcs dirs when expanding wildcards.
 set wildignore+=*/.git/*
