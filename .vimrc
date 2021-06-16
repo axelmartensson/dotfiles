@@ -68,7 +68,7 @@ if executable('rg')
 		:cexpr system("rg --fixed-strings --vimgrep " . shellescape(expand("<cword>")))
 	endfunction
 else
-	set grepprg=rgrep\ --exclude-dir=.git
+	set grepprg=grep\ -Hnr\ --exclude-dir=.git
 	function! FindSymbol()
 		:cexpr system("grep -F -n " . shellescape(expand("<cword>")))
 	endfunction
