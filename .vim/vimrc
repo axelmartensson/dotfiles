@@ -226,7 +226,7 @@ map <leader>c :Gcommit -a<CR>
 map <leader>d :Gdiff<CR>
 
 
-command Vrc edit ~/.vimrc
+command Vrc edit $MYVIMRC
 
 command Ecolors edit ~/.vim/bundle/vim-monochrome/colors/monochrome.vim
 " lists all the active syntax highlighting groups in their own color (from :help hi)
