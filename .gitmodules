@@ -58,3 +58,6 @@
 [submodule ".vim/bundle/vim-lsc"]
 	path = .vim/bundle/vim-lsc
 	url = https://github.com/natebosch/vim-lsc
+[submodule ".vim/bundle/goyo.vim"]
+	path = .vim/bundle/goyo.vim
+	url = https://github.com/junegunn/goyo.vim
