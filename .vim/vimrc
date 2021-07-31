@@ -28,8 +28,8 @@ map <X1Mouse> <C-O>
 map <X2Mouse> <C-I>
 
 
-map <bs>e :Make!<cr>
-map <bs>i :Termdebug<cr>
+nmap <bs>e :Make!<cr>
+nmap <bs>i :Termdebug<cr>
 
 let g:pandoc#formatting#mode = 'hA'
 
