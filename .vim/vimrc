@@ -18,11 +18,11 @@ nmap <bs><RightMouse> :cprev<cr>
 nmap <BS>n :cnext<cr>
 nmap <Leader>p :cprev<cr>
 
-nmap [q :cnext<cr>
-nmap ]q :cprev<cr>
+nmap ]q :cnext<cr>
+nmap [q :cprev<cr>
 
-nmap [w :lnext<cr>
-nmap ]w :lprev<cr>
+nmap ]w :lnext<cr>
+nmap [w :lprev<cr>
 
 map <X1Mouse> <C-O>
 map <X2Mouse> <C-I>
