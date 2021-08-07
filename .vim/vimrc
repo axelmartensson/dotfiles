@@ -15,9 +15,6 @@ nmap <Leader>q :qa<cr>
 nmap <bs><LeftMouse> :cnext<cr>
 nmap <bs><RightMouse> :cprev<cr>
 
-nmap <BS>n :cnext<cr>
-nmap <Leader>p :cprev<cr>
-
 nmap ]q :cnext<cr>
 nmap [q :cprev<cr>
 
