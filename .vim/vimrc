@@ -100,6 +100,7 @@ set completeopt+=preview
 set incsearch
 set ignorecase
 set ruler
+set noshowmode " don't show -- INSERT -- on the last line when in insert mode
 set isfname-=: " make file linenumber , e.g.: file.c:32 work with gF on windows
 set wildmenu
  " make words-with-hyphens count as one word
