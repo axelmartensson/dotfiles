@@ -22,6 +22,11 @@ DOTFILES := $(shell cat $(DOTFILES_MANIFEST))
 .PHONY: all
 all: $(DOTFILES) .xsession .fzf/bin/fzf ripgrep fd entr gcc python3 python3-pip curl xterm tmux vim lynx mutt exuberant-ctags spectrwm conky dzen2 dmenu ycm gpg pass code eclipse .eclipse openjdk xkbset
 
+# only install dotfiles
+dotfiles: $(DOTFILES)
+.PHONY: dotfiles
+
+
 $(DOTFILES):
 	[ ! -h $(CURDIR)/$@ ] &&\
 	[ -e $(CURDIR)/$@ ] &&\
