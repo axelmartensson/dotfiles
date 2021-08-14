@@ -164,7 +164,7 @@ let g:netrw_liststyle=3
 " netrw window height when split
 let g:netrw_winsize=30
 
-let g:pathogen_disabled = ['syntastic', 'vim-pandoc', 'coc.nvim', 'YouCompleteMe',]
+let g:pathogen_disabled = ['syntastic', 'vim-pandoc', 'coc.nvim', 'YouCompleteMe', 'AutoComplPop',]
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect() 
 call pathogen#helptags()
