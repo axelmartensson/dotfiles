@@ -11,6 +11,7 @@ nmap Y y$
 nmap h <PageUp>
 nmap l <PageDown>
 nmap <Leader>q :qa<cr>
+nmap <Leader>a :e #<cr>
 
 nmap <bs><LeftMouse> :cnext<cr>
 nmap <bs><RightMouse> :cprev<cr>
