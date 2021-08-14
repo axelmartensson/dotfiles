@@ -19,7 +19,7 @@ nnoremap <buffer> gp :lprev<CR>
 " header with documentation).
 " TODO, if cstag reports -1 fall back on old behavior (a way to implement or, 
 " maybe as a function?)
-nnoremap <silent> K :Man --sections=3,2,3posix,3pm,3perl,3am,5,1,n,l,8,4,9,6,7  <c-r><c-w><cr>
+set keywordprg=:Man\ --sections=3,2,3posix,3pm,3perl,3am,5,1,n,l,8,4,9,6,7
 nnoremap <silent> <Leader>k <c-w>}
 
 " load the termdebug plugin, provides :Termdebug and :TermdebugCommand
