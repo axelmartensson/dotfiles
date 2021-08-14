@@ -7,7 +7,7 @@ ifneq ($(CURDIR),$(HOME))
 switch-tree:
 	$(MAKE) -C $(HOME) -f $(CURDIR)/Makefile SRCDIR=$(CURDIR) $(MAKECMDGOALS)
 test:
-	time sudo docker run -v $(CURDIR):/dotfiles ubuntu /bin/bash -c "apt update;apt install -y sudo;$$(cat init)" init file:///dotfiles '.dotfiles'
+	time sudo docker run -v $(CURDIR):/dotfiles ubuntu /bin/bash -c " /dotfiles/init file:///dotfiles /tmp/dotfiles"
 # use 
 # sudo docker system prune
 # to free up space if running out of disk
