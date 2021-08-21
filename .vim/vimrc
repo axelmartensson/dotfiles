@@ -218,7 +218,7 @@ colorscheme monochrome
 command Gst Gstatus
 command Gpu Gpull
 command Gps Git push
-command Gca Gcommit -a
+command Gca Gcommit -va
 command Gdf Gdiff
 
 map <leader>c :Gca<CR>
