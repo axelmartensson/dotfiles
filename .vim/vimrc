@@ -228,6 +228,8 @@ command Ecolors edit ~/.vim/bundle/vim-monochrome/colors/monochrome.vim
 " lists all the active syntax highlighting groups in their own color (from :help hi)
 command Hitest source $VIMRUNTIME/syntax/hitest.vim
 
+command -nargs=1 Mann edit $HOME/man/<args>.txt
+
 " insert reference to the current position on the form filename:linenumber: in the
 " paste buffer
 map <Leader>l :s+$+\= "\n" . expand('%') . ":" . line('.') . ":"+ <bar> norm ddk<CR>
