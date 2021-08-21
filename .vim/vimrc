@@ -214,10 +214,10 @@ let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
 colorscheme monochrome
 
-command Gist Gstatus
-command Gipu Gpull
-command Gips Git push
-command Gica Gcommit -a
+command Gst Gstatus
+command Gpu Gpull
+command Gps Git push
+command Gca Gcommit -a
 
 map <leader>c :Gcommit -a<CR>
 map <leader>d :Gdiff<CR>
