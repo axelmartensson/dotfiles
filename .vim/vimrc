@@ -97,6 +97,11 @@ set wildignore+=tags
 set mouse=a
 set nocompatible
 set encoding=utf8
+" get vim to remember undo history across file closes. 
+set undofile
+" TODO add prerequisite:
+" !mkdir -p $HOME/.cache/vim/undo
+set undodir=$HOME/.cache/vim/undo
 set noswapfile
 " set expandtab
 " set tabstop=4
