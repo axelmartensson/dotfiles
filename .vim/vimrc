@@ -172,6 +172,7 @@ call pathogen#helptags()
 filetype plugin indent on
 syntax on
 
+au BufRead,BufNewFile *.fs set filetype=forth
 au BufRead,BufNewFile *.Rtex set filetype=rnoweb
 au BufRead,BufNewFile *.jrag set filetype=java
 au BufRead,BufNewFile *.jadd set filetype=java
