@@ -23,6 +23,7 @@ alias cmx="chmod +x"
 ###### GIT ALIASES #########
 #alias git=hub # wrapper for integration with github
 alias gca="git commit -va"
+alias gcaa="git commit -va --amend --no-edit"
 alias gco="git checkout"
 alias ghe="git help"
 alias gbr="git branch"
