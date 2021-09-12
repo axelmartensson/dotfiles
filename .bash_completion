@@ -1,6 +1,10 @@
 #! /bin/bash
 set -euo pipefail
 
+BASH_COMPLETIONS_DIR="$(pkg-config --variable=completionsdir bash-completion)"
+source $BASH_COMPLETIONS_DIR/git
+
+
 _home_bin() {
     _files() {
         for f in ~/bin/*
