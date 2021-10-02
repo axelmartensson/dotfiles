@@ -72,14 +72,6 @@ esac
 # only show working directory in bash prompt
 PS1=' \w\$ '
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
 
 # exports
 if [ -f ~/.bash_exports ]; then
@@ -95,6 +87,15 @@ fi
 
 if [ -f ~/.bash_completion ] && ! shopt -oq posix; then
     . ~/.bash_completion
+fi
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
