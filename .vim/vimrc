@@ -111,8 +111,8 @@ set clipboard^=unnamed
 set clipboard^=unnamedplus
 set splitbelow " open new splits below the current one instead of above
 set splitright " open new splits to the right instead of to the left
-set number
-set relativenumber
+" set number
+" set relativenumber
 set tw=60 " good fit on 29" screen
 " setting formatting options, see `:h fo-table` for details on each flag
 " enable formatting of comments with gq
