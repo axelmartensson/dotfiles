@@ -103,10 +103,6 @@ set ruler
 set noshowmode " don't show -- INSERT -- on the last line when in insert mode
 set isfname-=: " make file linenumber , e.g.: file.c:32 work with gF on windows
 set wildmenu
- " make words-with-hyphens count as one word
- " comment this out when working with C, lookup of `var` in  
- " `var->` doesn't work otherwise
-" set iskeyword+=-
 set clipboard^=unnamed
 set clipboard^=unnamedplus
 set splitbelow " open new splits below the current one instead of above
