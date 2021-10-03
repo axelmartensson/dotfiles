@@ -31,9 +31,9 @@ nmap <bs>i :Termdebug<cr>
 
 let g:pandoc#formatting#mode = 'hA'
 
-
+" navigate files and buffers
 map <Leader>o :Files<Cr>
-map <Leader>b :Buffers<Cr>
+map <Leader>b :History<Cr>
 set runtimepath^=~/.fzf
 
 imap <c-f> <c-x><c-f>
