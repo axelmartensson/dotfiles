@@ -1,4 +1,4 @@
 #!/bin/bash
 set -euo pipefail
-f=/home/axel/dbk/$(today).org
+f=/home/axel/dbk/$(today).md
 vim --servername dbkd --cmd "set exrc" + $f
