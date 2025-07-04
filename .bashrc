@@ -101,3 +101,12 @@ fi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 [ -f ~/z/z.sh ] && source ~/z/z.sh
+
+# temporarily setting it in ~/.bashrc instead of in ~/.inputrc https://unix.stackexchange.com/a/593495 
+bind 'set bell-style none'
+
+# 2025-01-03: temporarily skip because cannot figure out how to uninstall 'nvim' which is the only app i have installed in guix
+# GUIX_PROFILE="/var/guix/profiles/per-user/axel/guix-profile"
+# source "$GUIX_PROFILE/etc/profile"
+
+. "$HOME/.cargo/env"

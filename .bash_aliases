@@ -50,3 +50,8 @@ alias drrun="sudo docker run -it"
 
 alias install="sudo apt install -y"
 
+###### KUBERNETES ALIASES ######
+if command -v kubectl > /dev/null; then
+	alias kc=kubectl
+	declare -F __start_kubectl > /dev/null && complete -F __start_kubectl kc
+fi

@@ -13,6 +13,7 @@ nmap l <PageDown>
 nmap <Leader>q :qa<cr>
 nmap <Leader>a :e #<cr>
 
+map z<LeftMouse> :grep <c-r>=shellescape(expand("<cword>"))<cr><cr>
 nmap <bs><LeftMouse> :cnext<cr>
 nmap <bs><RightMouse> :cprev<cr>
 
@@ -114,6 +115,7 @@ set completeopt=menu,menuone
 " is already open
 set completeopt+=preview
 set incsearch
+set hlsearch
 set ignorecase
 set ruler
 set noshowmode " don't show -- INSERT -- on the last line when in insert mode
@@ -177,6 +179,94 @@ let g:netrw_liststyle=3
 let g:netrw_winsize=30
 
 let g:pathogen_disabled = ['syntastic', 'vim-pandoc', 'coc.nvim', 'YouCompleteMe', 'AutoComplPop',]
+
+
+" 2023-12-20: disable eclim to get the :History command from 
+let g:EclimDisabled = 1
+call remove(g:pathogen_disabled, index(g:pathogen_disabled, 'syntastic'))
+
+" messes with the autocompletion
+call add(g:pathogen_disabled, 'supertab')
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+
+if exists('g:vscode')
+	" 2023-08-05 temporarily disable most plugins to speed up 
+	" vscode-neovim
+	call add(g:pathogen_disabled, 'ack.vim')
+	call add(g:pathogen_disabled, 'autoclose')
+	call add(g:pathogen_disabled, 'AutoComplPop')
+	call add(g:pathogen_disabled, 'braceless.vim')
+	call add(g:pathogen_disabled, 'clips.vim')
+	call add(g:pathogen_disabled, 'coc.nvim')
+	call add(g:pathogen_disabled, 'coquille')
+	call add(g:pathogen_disabled, 'cscope')
+	call add(g:pathogen_disabled, 'ctrlp.vim')
+	call add(g:pathogen_disabled, 'dbext.vim')
+	call add(g:pathogen_disabled, 'fzf.vim')
+	call add(g:pathogen_disabled, 'goyo.vim')
+	call add(g:pathogen_disabled, 'gundo')
+	call add(g:pathogen_disabled, 'jedi-vim')
+	call add(g:pathogen_disabled, 'limelight.vim')
+	call add(g:pathogen_disabled, 'ocp-indent-vim')
+	call add(g:pathogen_disabled, 'rainbowParanthesis')
+	call add(g:pathogen_disabled, 'scmindent.rkt')
+	call add(g:pathogen_disabled, 'slimv')
+	call add(g:pathogen_disabled, 'supertab')
+	call add(g:pathogen_disabled, 'syntastic')
+	call add(g:pathogen_disabled, 'tags')
+	call add(g:pathogen_disabled, 'tlib_vim')
+	call add(g:pathogen_disabled, 'vim-addon-mw-utils')
+	call add(g:pathogen_disabled, 'vim-argumentative')
+	call add(g:pathogen_disabled, 'vimbufsync')
+	call add(g:pathogen_disabled, 'vim-cljrefactor')
+	call add(g:pathogen_disabled, 'vim-clojure-static')
+	call add(g:pathogen_disabled, 'vim-commentary')
+	call add(g:pathogen_disabled, 'vim-dispatch')
+	call add(g:pathogen_disabled, 'vim-fireplace')
+	call add(g:pathogen_disabled, 'vim-fugitive')
+	call add(g:pathogen_disabled, 'vim-gitgutter')
+	call add(g:pathogen_disabled, 'vim-glsl')
+	call add(g:pathogen_disabled, 'vim-gutentags')
+	call add(g:pathogen_disabled, 'vim-highlighturl')
+	call add(g:pathogen_disabled, 'vim-indent-object')
+	call add(g:pathogen_disabled, 'vim-jade')
+	call add(g:pathogen_disabled, 'vim-latex')
+	call add(g:pathogen_disabled, 'vim-leiningen')
+	call add(g:pathogen_disabled, 'vim-linux-coding-style')
+	call add(g:pathogen_disabled, 'vim-lion')
+	call add(g:pathogen_disabled, 'vim-lsc')
+	call add(g:pathogen_disabled, 'vim-minizinc')
+	call add(g:pathogen_disabled, 'vim-modelica')
+	call add(g:pathogen_disabled, 'vim-monochrome')
+	call add(g:pathogen_disabled, 'vim-ocl')
+	call add(g:pathogen_disabled, 'vim-pandoc')
+	call add(g:pathogen_disabled, 'vim-pathogen')
+	call add(g:pathogen_disabled, 'vim-projectionist')
+	call add(g:pathogen_disabled, 'vim-racket')
+	call add(g:pathogen_disabled, 'vim-repeat')
+	call add(g:pathogen_disabled, 'Vim-R-plugin')
+	call add(g:pathogen_disabled, 'vim-rtags')
+	call add(g:pathogen_disabled, 'vim-sendtoterm')
+	call add(g:pathogen_disabled, 'vim-sexp')
+	call add(g:pathogen_disabled, 'vim-sexp-mappings-for-regular-people')
+	call add(g:pathogen_disabled, 'vim-slamhound')
+	call add(g:pathogen_disabled, 'vim-snippets')
+	" call add(g:pathogen_disabled, 'vim-surround')
+	call add(g:pathogen_disabled, 'YCM-Generator')
+	call add(g:pathogen_disabled, 'YouCompleteMe')
+	" disable eclim
+	let g:EclimDisabled = 1
+endif
+
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect() 
 call pathogen#helptags()
@@ -200,7 +290,6 @@ augroup CursorLine
 	au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
 	au WinLeave * setlocal nocursorline
 augroup END
-
 
 au BufRead,BufNewFile *.pl set filetype=perl
 
@@ -226,6 +315,8 @@ let g:UltiSnipsJumpForwardTrigger = '<C-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
 colorscheme default
+" highlight the line under the cursor using dark grey background, and no underline
+hi CursorLine   cterm=NONE ctermbg=95 ctermfg=NONE
 
 map <leader>c :Gca<CR>
 map <leader>d :Gdf<CR>

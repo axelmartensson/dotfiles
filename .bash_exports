@@ -21,3 +21,7 @@ export FZF_ALT_C_COMMAND="fd -t d"
 
 # ripgrep
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+
+# go
+if [ -d /usr/local/go ]; then export GOROOT=/usr/local/go; export PATH=$PATH:$GOROOT/bin; fi
+if [ -d $HOME/go/bin ]; then export PATH=$PATH:$HOME/go/bin; fi
